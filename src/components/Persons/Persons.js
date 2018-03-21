@@ -3,8 +3,27 @@ import Person from './Person/Person'
 
 //StateFull Component
 class Persons extends Component {
+	constructor(props){
+		super(props)
+		console.log('[Persons.js] inside constructor:', props)
+		
+	}
+	
+	componentWillMount(){
+		console.log('[Persons.js] Inside componentWillMount()')
+	}
+	
+	componentDidMount(){
+		console.log('[Persons.js] Inside componentDidMount')
+	  
+    }
+    
+    componentWillUnMount(){
+        console.log('[Persons.js] Inside componentWillUnMount()')
+    }
     render() {
-       return this.props.persons.map((person, index) => (
+        console.log('[Persons.js] Inside render()')
+        return this.props.persons.map((person, index) => (
             <Person
                 key={person.id}
                 click={() => this.props.clicked(index)}

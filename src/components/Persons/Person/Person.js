@@ -3,7 +3,25 @@ import classes from './Person.css'
 
 //StateFull Component
 class Person extends Component {
+	constructor(props){
+		super(props)
+		console.log('[Person.js] inside constructor:', props)
+		
+	}
+	
+	componentWillMount(){
+		console.log('[Person.js] Inside componentWillMount()')
+	}
+	
+	componentDidMount(){
+		console.log('[Person.js] Inside componentDidMount')
+	  
+	}
+    componentWillUnMount(){
+        console.log('[Person.js] Inside componentWillUnMount()')
+    }
 	render(){
+		console.log('[Person.js] inside render()')
 		return (
 			<div className={classes.Person}>
 				<p onClick={this.props.click}>I'm {this.props.name}! and I am {this.props.age}

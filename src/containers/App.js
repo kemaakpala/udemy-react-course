@@ -4,7 +4,42 @@ import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
-  state = {
+  constructor(props){
+    super(props)
+    console.log('[App.js] inside constructor:', props)
+    
+    // works in react versions pre react16
+    this.state = {
+      persons: [
+        {
+          id: 'asfa1',
+          name: 'Max',
+          age: 28
+        }, {
+          id: 'bsfc1',
+          name: 'Manu',
+          age: 29
+        }, {
+          id: 'dsfe1',
+          name: 'Stephanie',
+          age: 26
+        }
+      ],
+      otherState: 'Some other value',
+      showPersons: false
+    }
+  }
+
+  componentWillMount(){
+    console.log('[App.js] Inside componentWillMount()')
+  }
+
+  componentDidMount(){
+    console.log('[App.js] Inside componentDidMount')
+  }
+  
+  // works in react 16.2.0 &>
+/*   state = {
     persons: [
       {
         id: 'asfa1',
@@ -22,7 +57,7 @@ class App extends Component {
     ],
     otherState: 'Some other value',
     showPersons: false
-  }
+  } */
 
   deletePersonHandler = (personIndex) => {
     /*
@@ -68,6 +103,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] inside render');
+
     //Handling dynamic content
     let persons = null;
 
