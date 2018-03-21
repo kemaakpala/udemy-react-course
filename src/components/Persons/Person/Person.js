@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import classes from './Person.css'
-import WithClass from '../../../hoc/withClass'
+import Aux from '../../../hoc/Aux'
+import withClass from '../../../hoc/withClass'
 //StateFull Component
 class Person extends Component {
 	constructor(props){
@@ -15,7 +17,11 @@ class Person extends Component {
 	
 	componentDidMount(){
 		console.log('[Person.js] Inside componentDidMount')
-	  
+		
+		// this should be used for things like controlling media playback and focusing on elements and not updating components
+		if(this.props.position === 0){
+			this.inputElement.focus()
+		}
 	}
     componentWillUnMount(){
         console.log('[Person.js] Inside componentWillUnMount()')
@@ -23,15 +29,16 @@ class Person extends Component {
 	render(){
 		console.log('[Person.js] inside render()')
 		return (
-			<WithClass classes={classes.Person}>
-				<p onClick={this.props.click}>I'm {this.props.name}! and I am {this.props.age}
-					years old</p>
+			<Aux>
+				<p onClick={this.props.click}>I'm {this.props.name}! and I am {this.props.age} years old</p>
 				<p>{this.props.children}</p>
-				<input type="text" 
+				<input 
+					ref={(inp) => { this.inputElement = inp}}
+					type="text" 
 					onChange={this.props.changed} 
 					value={this.props.name} 
 				/>
-			</WithClass>
+			</Aux>
 		)
 	}
 }
@@ -52,4 +59,11 @@ class Person extends Component {
 	)
 } */
 
-export default Person
+Person.propTypes = {
+	click: PropTypes.func,
+	name: PropTypes.string,
+	age: PropTypes.number,
+	changed: PropTypes.func 
+}
+
+export default withClass(Person, classes.Person)

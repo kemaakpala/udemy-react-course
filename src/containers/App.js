@@ -2,7 +2,10 @@ import React, {PureComponent} from 'react'
 import classes from './App.css'
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
-import WithClass from '../hoc/withClass'
+//Higher Order Component
+import Aux from '../hoc/Aux' // empty wrapper tag that returns props.children
+import withClass from '../hoc/withClass' // importing function / class that returns jsx
+// import WithClass from '../hoc/withClass' //importing jsx tag wrapped around props.children
 
 
 class App extends PureComponent {
@@ -28,7 +31,8 @@ class App extends PureComponent {
         }
       ],
       otherState: 'Some other value',
-      showPersons: false
+      showPersons: false,
+      toggleClickedCounter: 0
     }
   }
 
@@ -112,8 +116,11 @@ class App extends PureComponent {
 
   togglePersonsHandler = (arg) => {
     const doesShow = this.state.showPersons;
-    this.setState({
-      showPersons: !doesShow
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1 // best practise for mutating state if you rely on prevState
+      }
     });
   }
 
@@ -134,6 +141,18 @@ class App extends PureComponent {
     }
 
     return (
+      <Aux>
+      <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
+        <Cockpit
+          appTitle={this.props.title} 
+          showPersons={this.state.showPersons} 
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+        />
+        {persons}
+      </Aux>
+    );
+/*     return (
       <WithClass classes={classes.App}>
       <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit
@@ -144,8 +163,8 @@ class App extends PureComponent {
         />
         {persons}
       </WithClass>
-    );
+    ); */
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
