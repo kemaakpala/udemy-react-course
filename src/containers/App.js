@@ -38,6 +38,18 @@ class App extends Component {
     console.log('[App.js] Inside componentDidMount')
   }
   
+  shouldComponentUpdate(nextProps, nextState){
+      console.log('[Updated App.js] Inside shouldComponentUpdate()', nextProps, nextState)
+      return true
+  }
+
+  componentWillUpdate(nextProps, nextState){
+      console.log('[Updated App.js] Inside componentWillUpdate()', nextProps, nextState)
+  }
+
+  componentDidUpdate(){
+      console.log('[Updated App.js] Inside componentDidUpdate(): Side-Effects can be caused here', this.props, this.state)
+  }
   // works in react 16.2.0 &>
 /*   state = {
     persons: [
