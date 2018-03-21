@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import classes from './Person.css'
-
+import WithClass from '../../../hoc/withClass'
 //StateFull Component
 class Person extends Component {
 	constructor(props){
@@ -23,7 +23,7 @@ class Person extends Component {
 	render(){
 		console.log('[Person.js] inside render()')
 		return (
-			<div className={classes.Person}>
+			<WithClass classes={classes.Person}>
 				<p onClick={this.props.click}>I'm {this.props.name}! and I am {this.props.age}
 					years old</p>
 				<p>{this.props.children}</p>
@@ -31,7 +31,7 @@ class Person extends Component {
 					onChange={this.props.changed} 
 					value={this.props.name} 
 				/>
-			</div>
+			</WithClass>
 		)
 	}
 }

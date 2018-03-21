@@ -1,27 +1,33 @@
 import React from 'react'
 import classes from './Cockpit.css'
+import Aux from '../../hoc/Aux'
 
 const cockpit = (props) => { 
     const assignedClasses = [];
-    let btnClass = ''
+    let btnClass = classes.Button
 
     if (props.showPersons){
-        btnClass = classes.Red
+        btnClass = [classes.Button, classes.Red].join(' ')
     }
     if(props.persons.length <= 2){
-        assignedClasses.push('red'); // classes = ['red]
+        assignedClasses.push(classes.red); // classes = ['red]
     }
 
     if(props.persons.length <= 1) {
-        assignedClasses.push('bold'); // classes = ['red' , 'bold']
+        assignedClasses.push(classes.bold); // classes = ['red' , 'bold']
     }
-
+    /* 
+    * Title: Higher Order Component
+    * Description: custom higher order component Aux just returns props.children 
+    * you can also use Fragment which is a default component provided by react
+    * syntax: <Fragment></Fragment> shorthand:  <> </>
+    */
     return (
-        <div className={classes.Cockpit}>
+        <Aux>
             <h1> {props.appTitle}</h1>
             <p className={assignedClasses.join(' ')}>This is really working!</p>
             <button className={btnClass} onClick={props.clicked}>Toggle Persons</button>
-        </div>
+        </Aux>
     ) 
 }
 
